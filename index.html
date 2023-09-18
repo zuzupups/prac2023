@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Система тестирования</title>
+  <style>
+    body {
+      font-family: "Arial, sans-serif";
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      text-align: center;
+      background-color: #3498db;
+      color: white;
+      padding: 20px;
+      margin: 0;
+    }
+
+    form {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: white;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    .question {
+      margin-bottom: 20px;
+    }
+
+    .answer-input {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .add-answer-button {
+      margin-top: 10px;
+    }
+
+    .submit-button {
+      margin-top: 15px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Добавление теста</h1>
+  <form id="test-form">
+    <label for="test-name">Название теста:</label>
+    <input type="text" id="test-name" required>
+    <div id="questions-container">
+      <div class="question">
+        <label for="question">Вопрос:</label>
+        <input type="text" class="question-input" required>
+        <div class="answers">
+          <label for="answer">Варианты ответов:</label>
+          <input type="text" class="answer-input" required>
+          <input type="text" class="answer-input" required>
+          <button type="button" class="add-answer-button" onclick="addAnswerInput(this)">Добавить ещё вариант</button>
+        </div>
+        <label for="correct-answer">Правильный ответ:</label>
+        <select class="correct-answer" required>
+          <option value="0">Вариант 1</option>
+          <option value="1">Вариант 2</option>
+        </select>
+      </div>
+    </div>
+    <button type="button" id="add-question-button" onclick="addQuestion()">Добавить вопрос</button>
+    <button type="submit" class="submit-button">Сохранить</button>
+  </form>
+
+  <script>
+    function addAnswerInput(button) {
+      const answersContainer = button.previousElementSibling;
+      const answerInput = document.createElement("input");
+      answerInput.type = "text";
+      answerInput.classList.add("answer-input");
+      answersContainer.insertBefore(answerInput, button);
+    }
+
+    function addQuestion() {
+      const questionsContainer = document.getElementById("questions-container");
+      const questionDiv = document.createElement("div");
+      questionDiv.classList.add("question");
+      questionDiv.innerHTML = `
+        <label for="question">Вопрос:</label>
+        <input type="text" class="question-input" required>
+        <div class="answers">
+          <label for="answer">Варианты ответов:</label>
+          <input type="text" class="answer-input" required>
+          <input type="text" class="answer-input" required>
+          <button type="button" class="add-answer-button" onclick="addAnswerInput(this)">Добавить ещё вариант</button>
+        </div>
+        <label for="correct-answer">Правильный ответ:</label>
+        <select class="correct-answer" required>
+          <option value="0">Вариант 1</option>
+          <option value="1">Вариант 2</option>
+        </select>
+      `;
+      questionsContainer.appendChild(questionDiv);
+    }
+
+    document.getElementById("test-form").addEventListener("submit", function (event) {
+      event.preventDefault();
+      // Здесь можно добавить код для отправки данных на сервер
+      alert("Форма отправлена, данные можно отправить на сервер");
+      // Сброс формы для добавления нового теста
+      document.getElementById("test-form").reset();
+    });
+  </script>
+</body>
+
+</html>
